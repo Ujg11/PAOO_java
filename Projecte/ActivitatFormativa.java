@@ -17,7 +17,7 @@ public class ActivitatFormativa extends Activitat
 		this.duradaActivitat = durada;
 	}
 
-	public boolean esPossibleInscriuresPerData()
+	public boolean esPossibleInscriures()
 	{
 		LocalDate dataActual = LocalDate.now();
 
@@ -28,7 +28,7 @@ public class ActivitatFormativa extends Activitat
 
 	public boolean ferInscripcio(Persona p)
 	{
-		if (esPossibleInscriuresPerData() && llocPerInscripcio())
+		if (esPossibleInscriures() && llocPerInscripcio())
 		{
 			for (int i = 0; i < this.getPersonesInscrites() - 1; i++)
 			{
