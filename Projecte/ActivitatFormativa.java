@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 
 public class ActivitatFormativa extends Activitat
 {
+	// Inicializar con una fecha y hora específicas (año, mes, día, hora, minuto, segundo)
+	//LocalDateTime fechaHoraEspecifica = LocalDateTime.of(2022, 5, 8, 14, 30, 0);
 	private LocalDateTime diaIHora;
 	private LocalDate dataLimit;
 	private double duradaActivitat;

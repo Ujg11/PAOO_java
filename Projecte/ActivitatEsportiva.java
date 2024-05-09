@@ -4,8 +4,14 @@ import java.time.LocalTime;
 public class ActivitatEsportiva extends Activitat
 {
 	private String[] dies;
+
+	// Inicializar con una fecha específica (año, mes, día)
+	//LocalDate fechaEspecifica = LocalDate.of(2022, 5, 8);
 	private LocalDate dataIcici;
 	private LocalDate dataFi;
+
+	// Inicializar con una hora específica (hora, minuto, segundo)
+	//LocalTime horaEspecifica = LocalTime.of(14, 30, 0);
 	private LocalTime[] horaInici;
 	private LocalTime[] horaFi;
 
