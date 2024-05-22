@@ -1,4 +1,4 @@
-package Tasques.Tasca_3;
+package Tasca_3;
 
 public interface IOperadorBinario
 {

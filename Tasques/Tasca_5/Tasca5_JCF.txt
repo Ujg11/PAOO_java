@@ -1,0 +1,6 @@
+- Col·lecció de totes les activitats: no hi pot haver activitats repetides amb el mateix nom, si es vol fer una activitat vàries vegades
+el nom ha de canviar.	--> MAP (TreeMap)
+
+
+- Col·lecció de persones per activitat: no hi pot haver repetits, ha de ser iterable i no hi ha ordre. Com tenim un dni que es 
+únic, ens pot servir com a key. --> MAP (HashMap)

@@ -1,4 +1,4 @@
-package Tasques.Tasca_3;
+package Tasca_3;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
