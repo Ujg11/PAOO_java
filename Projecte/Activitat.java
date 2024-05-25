@@ -1,25 +1,28 @@
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public abstract class Activitat
+public abstract class Activitat implements Serializable
 {
-	private String nom;
-	private String descripcio;
-	private int maximParticipants;
-	private int personesInscrites;
-	private String adresa;
-	private String poblacio;
-	protected Persona[] inscrits;
+	private String					nom;
+	private String					descripcio;
+	private int						maximParticipants;
+	protected int					personesInscrites;
+	private String					adresa;
+	private String					poblacio;
+	protected Map<String, Persona>	inscrits;
 
-	public Activitat(String nom, String descripcio, int maximParticipants, int personesInscrites, String adresa, String poblacio)
+	public Activitat(String nom, String descripcio, int maximParticipants, String adresa, String poblacio)
 	{
 		this.nom = nom;
 		this.descripcio = descripcio;
 		this.maximParticipants = maximParticipants;
-		this.personesInscrites = personesInscrites;
+		this.personesInscrites = 0;
 		this.adresa = adresa;
 		this.poblacio = poblacio;
-		inscrits = new Persona[maximParticipants];
-		for (int i = 0; i < inscrits.length; i++)
-			inscrits[i] = null;
+		inscrits = new HashMap<>();
 	}
 
 	public boolean llocPerInscripcio()
@@ -30,90 +33,40 @@ public abstract class Activitat
 			return (false);
 	}
 
-	/*public boolean ferInscripcio(String dni, String tel)
-	{
-		Persona p = new Persona(dni, tel);
-	
-		if (llocPerInscripcio())
-		{
-			for (int i = 0; i < this.personesInscrites - 1; i++)
-			{
-				if (inscrits[i].getDNI().equals(p.getDNI()))
-					return (false);
-			}
-			inscrits[this.personesInscrites] = p;
-			this.personesInscrites++;
-			return (true);
-		}
-		return (false);
-	}*/
-
 	public abstract boolean ferInscripcio(Persona p);
-	/*{
-		if (llocPerInscripcio())
-		{
-			for (int i = 0; i < this.personesInscrites - 1; i++)
-			{
-				if (inscrits[i].getDNI().equals(p.getDNI()))
-					return (false);
-			}
-			inscrits[this.personesInscrites] = p;
-			this.personesInscrites++;
-			return (true);
-		}
-		return (false);
-	}*/
+	public abstract boolean admetInscripcio();
+	public abstract int tipusActivitat();
 
-	public boolean donarDeBaixa(String dni)
+	public String getTipus()
 	{
-		int i = 0;
-		boolean flag = false;
-
-		for (i = 0; i < this.personesInscrites - 1; i++)
-		{
-			if (inscrits[i].getDNI().equals(dni))
-			{
-				flag = true;
-				break ;
-			}	
-		}
-		if (flag)
-		{
-			for (int j = i; j < this.personesInscrites - 2; j++)
-			{
-				inscrits[j] = inscrits[j + 1];
-			}
-			inscrits[personesInscrites - 1] = null;
-			this.personesInscrites--;
-			return (true);
-		}
-		return (false);
-	}
- 
-	/*public Persona[] consultarPersonesInscrites()
-	{
-		Persona[] p = new Persona[this.inscrits.length];
-
-		for (int i = 0; i < this.inscrits.length; i++)
-		{
-			p[i] = new Persona(this.inscrits[i]);
-		}
-		return (p);
-	}*/
-
-	public Persona consultarPersonaInscrita(int iterador)
-	{
-		if (iterador >= 0 && iterador <= this.personesInscrites - 1)
-			return (this.inscrits[iterador]);
-		return (null);
+		return (this.getClass().getName());
 	}
 
-	public void consultarInscrits()
+	public boolean cancelarInscripcio(String dni)
 	{
-		for (int i = 0; i < this.personesInscrites; i++)
+		Persona p = this.inscrits.get(dni);
+
+		if (p == null)
+			return (false);
+		if (this.inscrits.remove(dni) != null)
+			return (true);
+		return (false);
+	}
+
+	public Iterable<Persona> consultarInscrits()
+	{
+		List<Persona> persones = new ArrayList<>();
+
+		for (Persona p : this.inscrits.values())
 		{
-			System.out.println(consultarPersonaInscrita(i));
+			persones.add(p);
 		}
+		return (persones);
+	}
+
+	public String toString()
+	{
+		return (this.getNom());
 	}
 
 	public String getNom() {

@@ -7,7 +7,7 @@ public class ActivitatEsportiva extends Activitat
 
 	// Inicializar con una fecha específica (año, mes, día)
 	//LocalDate fechaEspecifica = LocalDate.of(2022, 5, 8);
-	private LocalDate dataIcici;
+	private LocalDate dataInici;
 	private LocalDate dataFi;
 
 	// Inicializar con una hora específica (hora, minuto, segundo)
@@ -15,12 +15,12 @@ public class ActivitatEsportiva extends Activitat
 	private LocalTime[] horaInici;
 	private LocalTime[] horaFi;
 
-	public ActivitatEsportiva(String nom, String des, int maxPart, int persIns, String a, String p, String[] dies, LocalDate dataIcici,
+	public ActivitatEsportiva(String nom, String des, int maxPart, String a, String p, String[] dies, LocalDate dataIcici,
 						LocalDate dataFi, LocalTime[] horaInici, LocalTime[] horaFi)
 	{
-		super(nom, des, maxPart, persIns, a, p);
+		super(nom, des, maxPart, a, p);
 		this.dies = dies;
-		this.dataIcici = dataIcici;
+		this.dataInici = dataIcici;
 		this.dataFi = dataFi;
 		this.horaInici = horaInici;
 		this.horaFi = horaFi;
@@ -33,21 +33,36 @@ public class ActivitatEsportiva extends Activitat
 		return (true);
 	}
 
+	public boolean admetInscripcio()
+	{
+		LocalDate dataActual = LocalDate.now();
+
+		if (esPossibleInscriures(dataActual) && this.llocPerInscripcio())
+			return (true);
+		return (false);
+	}
+
 	public boolean ferInscripcio(Persona p)
 	{
 		LocalDate dataActual = LocalDate.now();
+		
+		if (p == null)
+			return (false);
 		if (esPossibleInscriures(dataActual) && this.llocPerInscripcio())
 		{
-			for (int i = 0; i < this.getPersonesInscrites() - 1; i++)
+			if (!this.inscrits.containsKey(p.getDNI()))
 			{
-				if (this.inscrits[i].getDNI().equals(p.getDNI()))
-					return (false);
+				this.inscrits.put(p.getDNI(), p);
+				this.personesInscrites++;
+				return (true);
 			}
-			inscrits[this.getPersonesInscrites()] = p;
-			this.setPersonesInscrites(getPersonesInscrites() + 1);
-			return (true);
 		}
 		return (false);
+	}
+
+	public int tipusActivitat()
+	{
+		return (1);
 	}
 
 	public String[] getDies() {
@@ -58,12 +73,12 @@ public class ActivitatEsportiva extends Activitat
 		this.dies = dies;
 	}
 
-	public LocalDate getDataIcici() {
-		return dataIcici;
+	public LocalDate getDataInici() {
+		return dataInici;
 	}
 
-	public void setDataIcici(LocalDate dataIcici) {
-		this.dataIcici = dataIcici;
+	public void setDataInici(LocalDate dataIcici) {
+		this.dataInici = dataIcici;
 	}
 
 	public LocalDate getDataFi() {

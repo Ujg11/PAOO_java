@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Persona
+public class Persona implements Serializable
 {
 	private String DNI;
 	private String telefon;
@@ -14,6 +15,14 @@ public class Persona
 	{
 		this.DNI = p.getDNI();
 		this.telefon = p.getTelefon();
+	}
+
+	public String toString()
+	{
+		String s = "";
+
+		s += this.getDNI() + ", " + this.getTelefon();
+		return (s);
 	}
 
 	public String getDNI()
@@ -35,12 +44,4 @@ public class Persona
 	{
 		this.telefon = telefon;
 	}
-
-	public String toString()
-	{
-		return "Persona: DNI=" + DNI + ", Telefon=" + telefon;
-	}
-	
-	
-
 }

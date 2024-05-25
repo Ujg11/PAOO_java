@@ -9,11 +9,10 @@ public class ActivitatFormativa extends Activitat
 	private LocalDate dataLimit;
 	private double duradaActivitat;
 
-
-	public ActivitatFormativa(String nom, String descripcio, int maximParticipants, int personesInscrites,
+	public ActivitatFormativa(String nom, String descripcio, int maximParticipants,
 			String adresa, String poblacio, LocalDateTime data, LocalDate limit, double durada)
 	{
-		super(nom, descripcio, maximParticipants, personesInscrites, adresa, poblacio);
+		super(nom, descripcio, maximParticipants, adresa, poblacio);
 		this.diaIHora = data;
 		this.dataLimit = limit;
 		this.duradaActivitat = durada;
@@ -28,20 +27,32 @@ public class ActivitatFormativa extends Activitat
 		return (false);
 	}
 
-	public boolean ferInscripcio(Persona p)
+	public boolean admetInscripcio()
 	{
 		if (esPossibleInscriures() && llocPerInscripcio())
-		{
-			for (int i = 0; i < this.getPersonesInscrites() - 1; i++)
-			{
-				if (this.inscrits[i].getDNI().equals(p.getDNI()))
-					return (false);
-			}
-			inscrits[this.getPersonesInscrites()] = p;
-			this.setPersonesInscrites(getPersonesInscrites() + 1);
 			return (true);
+		return (false);
+	}
+
+	public boolean ferInscripcio(Persona p)
+	{
+		if (p == null)
+			return (false);
+		if (esPossibleInscriures() && llocPerInscripcio())
+		{
+			if (!this.inscrits.containsKey(p.getDNI()))
+			{
+				this.inscrits.put(p.getDNI(), p);
+				this.personesInscrites++;
+				return (true);
+			}
 		}
 		return (false);
+	}
+
+	public int tipusActivitat()
+	{
+		return (3);
 	}
 
 	public LocalDateTime getDiaIHora() {
