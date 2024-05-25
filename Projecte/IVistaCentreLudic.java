@@ -10,7 +10,7 @@ public interface IVistaCentreLudic
 	public void addListenerAplicarFiltresLlistaActivitats(ActionListener l);
 	public void addListenerInscriureParticipant(ActionListener l);
 	public void addListenerCancelarInscripcio(ActionListener l);
-
+	
 	public void mostrarLlistaActivitats(Iterable<Activitat> llista);
 	public void mostrarLlistaParticipants(Iterable<Persona> llista);
 	public void mostrarInformacioActivitat(Activitat a);
@@ -24,4 +24,14 @@ public interface IVistaCentreLudic
 	public int	getFiltreInscripcions();
 	public int	getFiltreTipusActivitat();
 	public String	getFiltrePoblacio();
+	public String	getNomActivitatConsultada();
+	public String	getDNIinscripcio();
+	public String	getTelefonInscripcio();
+	public String	getDNICancelarInscripcio();
+	public void		setVisible(boolean v);
+	public void		clearActivitatCultural();
+	public void		clearActivitatEsportiva();
+	public void		clearActivitatFormativa();
+	public void		clearInscriureParticipant();
+	public void		clearEliminarParticipant();
 }

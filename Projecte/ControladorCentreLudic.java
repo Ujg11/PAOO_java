@@ -93,8 +93,13 @@ public class ControladorCentreLudic
 		{
 			if (!model.crearNovaActivitat(a))
 				vista.mostrarMissatgeError("Ja existeix una activitat amb aquest nom, probi un altre", "Error!");
-			if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
-				vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+			else
+			{
+				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
+					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearActivitatEsportiva();
+				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat esportiva");
+			}
 		}
 	}
 
@@ -106,8 +111,13 @@ public class ControladorCentreLudic
 		{
 			if (!model.crearNovaActivitat(a))
 				vista.mostrarMissatgeError("Ja existeix una activitat amb aquest nom, probi un altre", "Error!");
-			if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
-				vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+			else
+			{
+				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
+					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearActivitatCultural();
+				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat cultural");
+			}
 		}
 	}
 
@@ -119,8 +129,13 @@ public class ControladorCentreLudic
 		{
 			if (!model.crearNovaActivitat(a))
 				vista.mostrarMissatgeError("Ja existeix una activitat amb aquest nom, probi un altre", "Error!");
-			if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
-				vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+			else
+			{
+				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
+					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearActivitatFormativa();
+				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat formativa");
+			}	
 		}
 	}
 
@@ -177,24 +192,46 @@ public class ControladorCentreLudic
 
 	protected void teclaInscriureParticipantPulsada()
 	{
-		String nomActivitat = "";
-		String dni = ""; 
-		String telefon = "";
-		model.inscriurePersonaActivitat(nomActivitat, dni, telefon);
+		String nomActivitat = vista.getNomActivitatConsultada();
+		String dni = vista.getDNIinscripcio(); 
+		String telefon = vista.getTelefonInscripcio();
 
-		//if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
-		//	mostrar_error();
+		if (nomActivitat != null && dni != null && telefon != null)
+		{
+			if (!model.inscriurePersonaActivitat(nomActivitat, dni, telefon))
+				vista.mostrarMissatgeError("No s'ha pogut inscriure un nou participant", "Error al inscriure");
+			else
+			{
+				vista.mostrarMissatgeSuccess("Participant amb DNI= " + dni + " inscrit correctament", "Inscripció realitzada");
+				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
+					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearInscriureParticipant();
+				vista.mostrarLlistaParticipants(model.consultarInscripcionsActivitat(nomActivitat));
+			}
+		}
+		else
+			vista.mostrarMissatgeError("Omple les dades correctament", "Error al Inscriure un nou Participant");
 	}
 
 	protected void teclaCancelarInscripcioPulsada()
 	{
-		String nomActivitat = "";
-		String dni = ""; 
-		model.cancelarInscripcioPersonaActivitat(nomActivitat, dni);
-
-		//if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
-		//	mostrar_error();
+		String nomActivitat = vista.getNomActivitatConsultada();
+		String dni = vista.getDNICancelarInscripcio();
+		
+		if (nomActivitat != null && dni != null)
+		{
+			if(!model.cancelarInscripcioPersonaActivitat(nomActivitat, dni))
+				vista.mostrarMissatgeError("No s'ha pogut cancelar la inscripció, dni no trobat", "Error al cancelar inscripció");
+			else
+			{
+				vista.mostrarMissatgeSuccess("Participant amb DNI= " + dni + " cancel·lat correctament", "Cancelació realitzada");
+				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
+					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearEliminarParticipant();
+				vista.mostrarLlistaParticipants(model.consultarInscripcionsActivitat(nomActivitat));
+			}
+		}
+		else
+			vista.mostrarMissatgeError("Omple les dades correctament", "Error al cancelar inscripció");
 	}
-
-	
 }

@@ -21,7 +21,7 @@ public class Persona implements Serializable
 	{
 		String s = "";
 
-		s += this.getDNI() + ", " + this.getTelefon();
+		s += "Dni: " + this.getDNI() + " , Tel: " + this.getTelefon();
 		return (s);
 	}
 

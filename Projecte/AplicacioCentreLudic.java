@@ -5,8 +5,6 @@ public class AplicacioCentreLudic
 	private static String NOM_FITXER = "Fitxer_Activitats.obj";
 
 	public static void main(String[] args) {
-		FinestraCentreLudic finestra = new FinestraCentreLudic();
-
 		IVistaCentreLudic vista = new FinestraCentreLudic();
 		IModelCentreLudic model = new CentreLudic();
 		model.recuperar(NOM_FITXER);
@@ -17,7 +15,7 @@ public class AplicacioCentreLudic
 			{
 				public void run()
 				{
-					finestra.setVisible(true);
+					vista.setVisible(true);
 				}
 			}
 		);
@@ -30,7 +28,4 @@ public class AplicacioCentreLudic
 	public static void setNOM_FITXER(String nOM_FITXER) {
 		NOM_FITXER = nOM_FITXER;
 	}
-
-	
-	
 }

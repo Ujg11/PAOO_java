@@ -1,7 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,6 +21,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -193,10 +199,24 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 
 	private JPanel crearPanelInici()
 	{
-		this.panelInici = new JPanel();
-		this.panelInici.setLayout(new BoxLayout(panelInici, BoxLayout.Y_AXIS));
+		this.panelInici = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.insets = new Insets(15, 15, 15, 15);	
 
-		this.panelInici.add(new JLabel("    Benvinguts al nostre Centre Ludic on podras trobar moltes activitats!"));
+		JLabel benbinguda = new JLabel("Benvinguts al nostre Centre Ludic!");
+		benbinguda.setFont(new Font("Arial", Font.BOLD, 24));
+		benbinguda.setForeground(Color.ORANGE);
+		benbinguda.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.panelInici.add(benbinguda, gbc);
+
+		gbc.gridy = 1;
+		gbc.fill = GridBagConstraints.CENTER;
+		ImageIcon im = new ImageIcon("C:/Users/Lenovo/OneDrive/Documents/PAOO_repo/Projecte/imatge_inicial.jpg");
+		JLabel imatge = new JLabel(im);
+		this.panelInici.add(imatge, gbc);
+
 		return (panelInici);
 	}
 
@@ -345,7 +365,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		});
 	}
 
-	private void clearActivitatCultural()
+	public void clearActivitatCultural()
 	{
 		nomActivitatC.setText("Nom");
 		descripcioActivitatC.setText("Descripció");
@@ -358,7 +378,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		dataActivitatCultural.setDate(null);
 	}
 
-	private void clearActivitatEsportiva()
+	public void clearActivitatEsportiva()
 	{
 		nomActivitatE.setText("Nom");
 		descripcioActivitatE.setText("Descripció");
@@ -379,7 +399,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		dataFiEsportiva.setDate(null);
 	}
 
-	private void clearActivitatFormativa()
+	public void clearActivitatFormativa()
 	{
 		nomActivitatF.setText("Nom");
 		descripcioActivitatF.setText("Descripció");
@@ -390,6 +410,22 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		duracioActivitatF.setValue(0);
 		dataLimitInscripcioF.setDate(null);
 		dataActivitatFormativa.setDate(null);
+	}
+
+	public void clearInscriureParticipant()
+	{
+		gestionaDNI.setText("");
+		gestionaTelefon.setText("");
+	}
+
+	public void		clearEliminarParticipant()
+	{
+		DNIACancelar.setText("");
+	}
+
+	private void	clearActivitatEscollida()
+	{
+		activitatAModificar.setText("");
 	}
 
 	//Panells: "ActivitatEsportiva", "ActivitatCultural", "ActivitatFormativa"
@@ -827,6 +863,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				clearActivitatEscollida();
 				showCardPanelLlistarActivitats("Opcions");
 			}
 		});
@@ -1234,8 +1271,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	{
 		String	s = "Activitats:\n";
 
-		System.out.println("Arriba");
-
 		if (!llista.iterator().hasNext())
 			this.llistaActivitats.setText("No hi ha cap activitat");
 		else
@@ -1258,7 +1293,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		{
 			for (Persona p : llista)
 			{
-				s += p + "\n";
+				s += p.toString() + "\n";
 			}
 			this.llistaInscripcions.setText(s);
 		}
@@ -1306,6 +1341,8 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			if (s != null)
 				dies += s + ", ";
 		}
+		if (dies.endsWith(", "))
+			dies = dies.substring(0, dies.length() - 2);
 		dataInici += a.getDataInici().getDayOfMonth() + "/" +
 					a.getDataInici().getMonthValue() + "/" +
 					a.getDataInici().getYear();
@@ -1321,7 +1358,16 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			}
 		}
 		if (aux != null)
-			horaInici += aux.getHour() + ":" + aux.getMinute();
+		{
+			if (aux.getMinute() == 0)
+				horaInici += aux.getHour() + ":00";
+			else if (aux.getMinute() < 10)
+				horaInici += aux.getHour() + ":0" + aux.getMinute();
+			else
+				horaInici += aux.getHour() + ":" + aux.getMinute();
+			if (aux.getHour() < 10)
+				horaInici = "0" + horaInici;
+		}
 		for (LocalTime t : a.getHoraFi())
 		{
 			if (t != null)
@@ -1331,7 +1377,16 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			}
 		}
 		if (aux != null)
-			horaFi += aux.getHour() + ":" + aux.getMinute();
+		{
+			if (aux.getMinute() == 0)
+				horaFi += aux.getHour() + ":00";
+			else if (aux.getMinute() < 10)
+				horaFi += aux.getHour() + ":0" + aux.getMinute();
+			else
+				horaFi += aux.getHour() + ":" + aux.getMinute();
+			if (aux.getHour() < 10)
+				horaFi = "0" + horaFi;
+		}
 		consultaDiesAE.setText(dies);
 		consultaDataIniciAE.setText(dataInici);
 		consultaDataFiAE.setText(dataFi);
@@ -1342,21 +1397,48 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	private void mostrarActivitatCultural(ActivitatCultural a)
 	{
 		LocalDateTime	ldt = a.getHorariActivitat();
+		String			s;
 		
-		consultarPreuAC.setText("" + a.getPreu());
-		consultarDataAC.setText("" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear());
-		consultarHoraAC.setText("" + ldt.getHour() + ":" + ldt.getMinute());
+		consultarPreuAC.setText("" + a.getPreu() + "€");
+		if (ldt != null)
+		{
+			consultarDataAC.setText("" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear());
+			if (ldt.getMinute() == 0)
+				s = ldt.getHour() + ":00";
+			else if (ldt.getMinute() < 10)
+				s = ldt.getHour() + ":0" + ldt.getMinute();
+			else
+				s = ldt.getHour() + ":" + ldt.getMinute();
+			if (ldt.getHour() < 10)
+				s = "0" + s;
+			consultarHoraAC.setText(s);
+		}
 	}
 
 	private void mostrarActivitatFormativa(ActivitatFormativa a)
 	{
 		LocalDateTime	ldt = a.getDiaIHora();
 		LocalDate		ld = a.getDataLimit();
+		String			s;
 	
-		consultarDataAF.setText("" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear());
-		consultarHoraAF.setText("" + ldt.getHour() + ":" + ldt.getMinute());
-		consultarDataLimitAF.setText("" + ld.getDayOfMonth() + "/" + ld.getMonthValue() + "/" + ld.getYear());
-		consultarDuracioAF.setText("" + a.getDuradaActivitat());
+		if (ldt != null)
+		{	
+			consultarDataAF.setText("" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear());
+			if (ldt.getMinute() == 0)
+				s = ldt.getHour() + ":00";
+			else if (ldt.getMinute() < 10)
+				s = ldt.getHour() + ":0" + ldt.getMinute();
+			else
+				s = ldt.getHour() + ":" + ldt.getMinute();
+			if (ldt.getHour() < 10)
+				s = "0" + s;
+			consultarHoraAF.setText(s);
+		}
+		if (ld != null)
+		{
+			consultarDataLimitAF.setText("" + ld.getDayOfMonth() + "/" + ld.getMonthValue() + "/" + ld.getYear());
+			consultarDuracioAF.setText("" + (int)a.getDuradaActivitat() + "h");
+		}
 	}
 
 	public ActivitatEsportiva getActivitatEsportivaNova()
@@ -1393,7 +1475,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		aux2 = Calendar.getInstance();
 		aux2.setTime(aux1);
-		dataInici = LocalDate.of(aux2.get(Calendar.YEAR), aux2.get(Calendar.MONTH), aux2.get(Calendar.DAY_OF_MONTH));
+		dataInici = LocalDate.of(aux2.get(Calendar.YEAR), aux2.get(Calendar.MONTH) + 1, aux2.get(Calendar.DAY_OF_MONTH));
 		aux1 = dataFiEsportiva.getDate();
 		if (aux1 == null)
 		{
@@ -1402,7 +1484,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		aux3 = Calendar.getInstance();
 		aux3.setTime(aux1);
-		dataFi = LocalDate.of(aux3.get(Calendar.YEAR), aux3.get(Calendar.MONTH), aux3.get(Calendar.DAY_OF_MONTH));
+		dataFi = LocalDate.of(aux3.get(Calendar.YEAR), aux3.get(Calendar.MONTH) + 1, aux3.get(Calendar.DAY_OF_MONTH));
 		if (dataInici.isAfter(dataFi))
 		{
 			mostrarMissatgeError("La data d'inici no pot ser posterior a la de fi", "Error al entrar les dades");
@@ -1464,7 +1546,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		auxCal = Calendar.getInstance();
 		auxCal.setTime(auxData);
-		data = LocalDate.of(auxCal.get(Calendar.YEAR), auxCal.get(Calendar.MONTH), auxCal.get(Calendar.DAY_OF_MONTH));
+		data = LocalDate.of(auxCal.get(Calendar.YEAR), auxCal.get(Calendar.MONTH) + 1, auxCal.get(Calendar.DAY_OF_MONTH));
 		dataActual = LocalDate.now();
 		if (data.isBefore(dataActual))
 		{
@@ -1516,7 +1598,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		auxCal = Calendar.getInstance();
 		auxCal.setTime(auxData);
-		data = LocalDate.of(auxCal.get(Calendar.YEAR), auxCal.get(Calendar.MONTH), auxCal.get(Calendar.DAY_OF_MONTH));
+		data = LocalDate.of(auxCal.get(Calendar.YEAR), auxCal.get(Calendar.MONTH) + 1, auxCal.get(Calendar.DAY_OF_MONTH));
 		dataActual = LocalDate.now();
 		if (data.isBefore(dataActual))
 		{
@@ -1533,7 +1615,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		auxCal2 = Calendar.getInstance();
 		auxCal2.setTime(auxData);
-		limit = LocalDate.of(auxCal2.get(Calendar.YEAR), auxCal2.get(Calendar.MONTH), auxCal2.get(Calendar.DAY_OF_MONTH));
+		limit = LocalDate.of(auxCal2.get(Calendar.YEAR), auxCal2.get(Calendar.MONTH) + 1, auxCal2.get(Calendar.DAY_OF_MONTH));
 		if (limit.isBefore(dataActual))
 		{
 			mostrarMissatgeError("La data escollida no és possible", "Error al crear l'activitat");
@@ -1671,4 +1753,41 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			return (null);
 		return (s);
 	}
+
+	public String	getNomActivitatConsultada()
+	{
+		String s = consultaNom.getText();
+
+		if (s.isEmpty() || s.isBlank())
+			return (null);
+		return (s);
+	}
+
+	public String	getDNIinscripcio()
+	{
+		String s = gestionaDNI.getText();
+
+		if (s.isEmpty() || s.isBlank())
+			return (null);
+		return (s);
+	}
+
+	public String	getTelefonInscripcio()
+	{
+		String s = gestionaTelefon.getText();
+
+		if (s.isEmpty() || s.isBlank())
+			return (null);
+		return (s);
+	}
+
+	public String	getDNICancelarInscripcio()
+	{
+		String s = DNIACancelar.getText();
+
+		if (s.isEmpty() || s.isBlank())
+			return (null);
+		return (s);
+	}
+
 }
