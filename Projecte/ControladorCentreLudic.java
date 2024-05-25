@@ -99,6 +99,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatEsportiva();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat esportiva");
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 		}
 	}
@@ -117,6 +118,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatCultural();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat cultural");
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 		}
 	}
@@ -135,6 +137,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatFormativa();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat formativa");
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}	
 		}
 	}
@@ -157,6 +160,7 @@ public class ControladorCentreLudic
 				vista.mostrarInformacioActivitat(a);
 				Iterable<Persona> inscrits = model.consultarInscripcionsActivitat(nomActivitat);
 				vista.mostrarLlistaParticipants(inscrits);
+				vista.clearActivitatEscollida();
 			}
 		}
 	}
@@ -172,12 +176,14 @@ public class ControladorCentreLudic
 				vista.mostrarMissatgeSuccess("Activitat eliminada correctament", "Administrador");
 				if (!model.desar(AplicacioCentreLudic.getNOM_FITXER()))
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
+				vista.clearActivitatEscollida();
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 			else
 				vista.mostrarMissatgeError("La activitat a borrar no s'ha trobat", "Error al borrar activitat");
 		}
 	}
-
+	
 	protected void teclaFiltresLlistaActivitatsPulsada()
 	{
 		int		admetInscripcions = vista.getFiltreInscripcions();
@@ -195,8 +201,10 @@ public class ControladorCentreLudic
 		String nomActivitat = vista.getNomActivitatConsultada();
 		String dni = vista.getDNIinscripcio(); 
 		String telefon = vista.getTelefonInscripcio();
-
-		if (nomActivitat != null && dni != null && telefon != null)
+		
+		if (telefon != null && !sonNumeros(telefon))
+			vista.mostrarMissatgeError("El telefon només pot contenir números", "Error al inscriure participant");
+		else if (nomActivitat != null && dni != null && telefon != null)
 		{
 			if (!model.inscriurePersonaActivitat(nomActivitat, dni, telefon))
 				vista.mostrarMissatgeError("No s'ha pogut inscriure un nou participant", "Error al inscriure");
@@ -211,6 +219,16 @@ public class ControladorCentreLudic
 		}
 		else
 			vista.mostrarMissatgeError("Omple les dades correctament", "Error al Inscriure un nou Participant");
+	}
+
+	private boolean sonNumeros(String s)
+	{
+		for (int i = 0; i < s.length(); i++)
+		{
+			if (s.charAt(i) < '0' || s.charAt(i) > '9')
+				return (false);
+		}
+		return (true);
 	}
 
 	protected void teclaCancelarInscripcioPulsada()

@@ -34,4 +34,5 @@ public interface IVistaCentreLudic
 	public void		clearActivitatFormativa();
 	public void		clearInscriureParticipant();
 	public void		clearEliminarParticipant();
+	public void		clearActivitatEscollida();
 }

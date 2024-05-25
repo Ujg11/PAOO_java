@@ -41,16 +41,6 @@ import javax.swing.SpinnerNumberModel;
 
 import com.toedter.calendar.JDateChooser;
 
-//JCalendar ->web: toedter.com
-// 1- ens baixem la llibreria (un zip)
-// 2- carpeta lib
-// 3- afegirla i buscar com afegirla (eclipse: build path)
-
-//crear: private JDataChooser dataChooser;
-//		dataChooser = new JDataChooser("dd/MM/yyyy", "##/##/##", '_');
-//ara l'afegiriem on volguessim
-//per consultar la data: dataChooser.getDate();
-
 public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 {
 	//Panell Principal
@@ -58,7 +48,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	private JMenuItem	iniciApp;
 	private JMenuItem	crearNovaActivitat;
 	private JMenuItem	consultarLlistaActivitats;
-	//private JMenuItem	consultarModificarActivitat;
 
 	//Panel inici
 	private JPanel		panelInici;
@@ -111,14 +100,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			private JComboBox	tipusActivitatFiltre;
 			private	JTextField	poblacioFiltre;
 			private JButton		aplicar;
-			//Farem un quadre de text amb la llista de les activitats i que sera un JScrollPane
 			private JTextArea	llistaActivitats;
-			private JTextField	activitatAModificar; //La activitat seleccionada
-
+			private JTextField	activitatAModificar;
 			private JButton		consultarActivitat;
 			private JButton		eliminarActivitat;
-			//private JComboBox	gestioActivitat; //Inscriure Persona, Cancelar inscripcio, Consultar Inscripcions
-			//private JButton		gestionarActivitatBoto;
 		
 		//Panell de Consultar Activitat
 		private JPanel	panelConsultarActivitat; //(borderLayout)
@@ -143,16 +128,12 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 				private JPanel	panelConsultaAFormativa;
 					private JTextField	consultarDataAF, consultarHoraAF, consultarDataLimitAF, consultarDuracioAF;
 
-
 		//Panell de Gestionar Activitat
 		private JPanel	panelGestionarActivitat;
 				private JTextArea	llistaInscripcions;
 				private JTextField	gestionaDNI, gestionaTelefon;
 				private	JTextField	DNIACancelar;
-				private JButton		inscriureBoto, cancelarInsBoto;
-
-			//S'ha de poder: inscriure, cancelar una inscripcio, consultar les inscripcions
-		
+				private JButton		inscriureBoto, cancelarInsBoto;		
 
 	public FinestraCentreLudic()
 	{
@@ -191,7 +172,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		return (this.panelPrincipal);
 	}
 
-		//"Inici", "PanelCrearActivitat" i "PanelLlistaActivitats"
 	protected void showCardPanelPrincipal(String card)
 	{
 		((CardLayout) this.panelPrincipal.getLayout()).show(panelPrincipal, card);
@@ -205,7 +185,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		gbc.gridy = 0;
 		gbc.insets = new Insets(15, 15, 15, 15);	
 
-		JLabel benbinguda = new JLabel("Benvinguts al nostre Centre Ludic!");
+		JLabel benbinguda = new JLabel("Benvinguts i benvingudes al nostre Centre Lúdic!");
 		benbinguda.setFont(new Font("Arial", Font.BOLD, 24));
 		benbinguda.setForeground(Color.ORANGE);
 		benbinguda.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -216,7 +196,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		ImageIcon im = new ImageIcon("C:/Users/Lenovo/OneDrive/Documents/PAOO_repo/Projecte/imatge_inicial.jpg");
 		JLabel imatge = new JLabel(im);
 		this.panelInici.add(imatge, gbc);
-
 		return (panelInici);
 	}
 
@@ -250,6 +229,12 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				clearActivitatCultural();
+				clearActivitatEsportiva();
+				clearActivitatFormativa();
+				clearInscriureParticipant();
+				clearEliminarParticipant();
+				clearActivitatEscollida();
 				showCardPanelPrincipal("Inici");
 			}
 		});
@@ -257,6 +242,12 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				clearActivitatCultural();
+				clearActivitatEsportiva();
+				clearActivitatFormativa();
+				clearInscriureParticipant();
+				clearEliminarParticipant();
+				clearActivitatEscollida();
 				showCardPanelPrincipal("PanelCrearActivitat");
 			}
 		});
@@ -264,8 +255,12 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//List<Activitat> l = new ArrayList<>();
-				//mostrarLlistaActivitats(l);
+				clearActivitatCultural();
+				clearActivitatEsportiva();
+				clearActivitatFormativa();
+				clearInscriureParticipant();
+				clearEliminarParticipant();
+				clearActivitatEscollida();
 				showCardPanelPrincipal("PanelLlistaActivitats");
 			}
 		});
@@ -423,7 +418,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		DNIACancelar.setText("");
 	}
 
-	private void	clearActivitatEscollida()
+	public void	clearActivitatEscollida()
 	{
 		activitatAModificar.setText("");
 	}
@@ -849,16 +844,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	
 	private void addOyentesItemsPanelLlistarActivitats()
 	{
-		//this.consultarActivitat.addActionListener(new ActionListener()
-		//{
-		//	public void actionPerformed(ActionEvent e)
-		//	{
-		//		String s = activitatAModificar.getText();
-		//		//Mirar si existeix la activitat en concret
-		//		showCardPanelLlistarActivitats("ConsultarActivitat");
-		//		
-		//	}
-		//});
 		this.tornarDeConsultaAOpcions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -977,7 +962,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		JPanel linea2 = new JPanel();
 		linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
 		linea2.add(Box.createHorizontalStrut(20));
-		linea2.add(new JLabel("Numero Maxim de Participants"));
+		linea2.add(new JLabel("Número Màxim de Participants"));
 		linea2.add(Box.createHorizontalStrut(10));
 		this.consultaNumMaxParticipants = new JTextField("");
 		this.consultaNumMaxParticipants.setEditable(false);
@@ -995,7 +980,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		JPanel linea3 = new JPanel();
 		linea3.setLayout(new BoxLayout(linea3, BoxLayout.X_AXIS));
 		linea3.add(Box.createHorizontalStrut(20));
-		linea3.add(new JLabel("Població on es realitzarà la activitat"));
+		linea3.add(new JLabel("Població on es realitzarà l'activitat"));
 		linea3.add(Box.createHorizontalStrut(15));
 		this.consultaPoblacio = new JTextField("");
 		this.consultaPoblacio.setEditable(false);
@@ -1211,7 +1196,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		JPanel linea3 = new JPanel();
 		linea3.setLayout(new BoxLayout(linea3, BoxLayout.X_AXIS));
 		linea3.add(Box.createHorizontalStrut(20));
-		linea3.add(new JLabel("Cancelar Inscripcio:"));
+		linea3.add(new JLabel("Cancelar Inscripció:"));
 		linea3.add(Box.createHorizontalStrut(10));
 		linea3.add(new JLabel("DNI a cancel·lar"));
 		linea3.add(Box.createHorizontalStrut(10));
@@ -1605,7 +1590,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			mostrarMissatgeError("La data escollida no és possible", "Error al crear l'activitat");
 			return (null);
 		}
-		hora = LocalTime.of((int)horaIniciACultural.getValue(), (int)minIniciACultural.getValue());
+		hora = LocalTime.of((int)horaIniciActivitatF.getValue(), 0);
 		dataHora = LocalDateTime.of(data, hora);
 		auxData2 = dataLimitInscripcioF.getDate();
 		if (auxData2 == null)
@@ -1614,11 +1599,16 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			return (null);
 		}
 		auxCal2 = Calendar.getInstance();
-		auxCal2.setTime(auxData);
+		auxCal2.setTime(auxData2);
 		limit = LocalDate.of(auxCal2.get(Calendar.YEAR), auxCal2.get(Calendar.MONTH) + 1, auxCal2.get(Calendar.DAY_OF_MONTH));
 		if (limit.isBefore(dataActual))
 		{
 			mostrarMissatgeError("La data escollida no és possible", "Error al crear l'activitat");
+			return (null);
+		}
+		if (data.isBefore(limit))
+		{
+			mostrarMissatgeError("Error en seleccionar una data límit", "Error al crear l'activitat");
 			return (null);
 		}
 		if (comprobar(nom, "el nom") && comprobar(des, "la descripció") && comprobar(adr, "l'adreça") && comprobar(pob, "la població"))
