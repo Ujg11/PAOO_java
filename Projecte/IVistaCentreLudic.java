@@ -10,6 +10,8 @@ public interface IVistaCentreLudic
 	public void addListenerAplicarFiltresLlistaActivitats(ActionListener l);
 	public void addListenerInscriureParticipant(ActionListener l);
 	public void addListenerCancelarInscripcio(ActionListener l);
+	public void addListenerTornarDeConsultaAOpcions(ActionListener l);
+	public void extrasTornarAOpcions();
 	
 	public void mostrarLlistaActivitats(Iterable<Activitat> llista);
 	public void mostrarLlistaParticipants(Iterable<Persona> llista);
@@ -35,4 +37,5 @@ public interface IVistaCentreLudic
 	public void		clearInscriureParticipant();
 	public void		clearEliminarParticipant();
 	public void		clearActivitatEscollida();
+	public void		clearFiltres();
 }

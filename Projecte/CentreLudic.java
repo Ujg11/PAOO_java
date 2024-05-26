@@ -34,7 +34,7 @@ public class CentreLudic implements IModelCentreLudic, Serializable
 	{
 		for (Activitat a : activitats.values())
 		{
-			if (a.getPoblacio().equals(p))
+			if (a.getPoblacio().startsWith(p))
 				return (true);
 		}
 		return (false);
@@ -55,7 +55,7 @@ public class CentreLudic implements IModelCentreLudic, Serializable
 				flag = false;
 			if (tipusActivitat != 0 && tipusActivitat != a.tipusActivitat())
 				flag = false;
-			if (fPoblacio != null && !a.getPoblacio().equals(fPoblacio))
+			if (fPoblacio != null && !a.getPoblacio().startsWith(fPoblacio))
 				flag = false;
 			if (flag)
 				llista.add(a);

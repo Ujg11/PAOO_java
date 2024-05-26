@@ -79,8 +79,17 @@ public class ControladorCentreLudic
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				System.out.println("Entra");
 				teclaCancelarInscripcioPulsada();
+			}
+		});
+		vista.addListenerTornarDeConsultaAOpcions(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				vista.clearActivitatEscollida();
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
+				vista.clearFiltres();
+				vista.extrasTornarAOpcions();
 			}
 		});
 	}
@@ -192,8 +201,11 @@ public class ControladorCentreLudic
 		
 		if (poblacio != null && !model.poblacioCorrecte(poblacio))
 			vista.mostrarMissatgeError("No hi ha cap activitat en aquesta població", "Error al filtrar per Població");
-		Iterable<Activitat> ll = model.consultarActivitats(admetInscripcions, tipusActivitat, poblacio);
-		vista.mostrarLlistaActivitats(ll);
+		else
+		{
+			Iterable<Activitat> ll = model.consultarActivitats(admetInscripcions, tipusActivitat, poblacio);
+			vista.mostrarLlistaActivitats(ll);
+		}
 	}
 
 	protected void teclaInscriureParticipantPulsada()

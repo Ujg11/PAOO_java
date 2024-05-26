@@ -99,6 +99,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			private JComboBox	admetInscripcions;
 			private JComboBox	tipusActivitatFiltre;
 			private	JTextField	poblacioFiltre;
+
 			private JButton		aplicar;
 			private JTextArea	llistaActivitats;
 			private JTextField	activitatAModificar;
@@ -305,6 +306,9 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			{
 				String s = (String) tipusActivitat.getSelectedItem();
 				showCardActivitatConcreta(s);
+				clearActivitatCultural();
+				clearActivitatEsportiva();
+				clearActivitatFormativa();
 			}
 		});
 		this.botoTornarAC.addActionListener(new ActionListener()
@@ -833,25 +837,43 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 
 		this.panelLlistaActivitats.add(crearPanelOpcions(), "Opcions");
 		this.panelLlistaActivitats.add(crearPanelConsultarActivitat(), "ConsultarActivitat");
-		addOyentesItemsPanelLlistarActivitats();
+		//addOyentesItemsPanelLlistarActivitats();
 		return (this.panelLlistaActivitats);
 	}
 
-	protected void showCardPanelLlistarActivitats(String card)
+	public void showCardPanelLlistarActivitats(String card)
 	{
 		((CardLayout) this.panelLlistaActivitats.getLayout()).show(panelLlistaActivitats, card);
 	}
 	
-	private void addOyentesItemsPanelLlistarActivitats()
+	//private void addOyentesItemsPanelLlistarActivitats()
+	//{
+	//	this.tornarDeConsultaAOpcions.addActionListener(new ActionListener()
+	//	{
+	//		public void actionPerformed(ActionEvent e)
+	//		{
+//
+	//			clearActivitatEscollida();
+	//			showCardPanelLlistarActivitats("Opcions");
+	//		}
+	//	});
+	//}
+
+	public void addListenerTornarDeConsultaAOpcions(ActionListener l)
 	{
-		this.tornarDeConsultaAOpcions.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				clearActivitatEscollida();
-				showCardPanelLlistarActivitats("Opcions");
-			}
-		});
+		this.tornarDeConsultaAOpcions.addActionListener(l);
+	}
+
+	public void clearFiltres()
+	{
+		poblacioFiltre.setText("");
+		admetInscripcions.setSelectedItem("Indiferent");
+		tipusActivitatFiltre.setSelectedItem("Indiferent");
+	}
+
+	public void extrasTornarAOpcions()
+	{
+		showCardPanelLlistarActivitats("Opcions");
 	}
 
 	private JPanel crearPanelOpcions()
@@ -1314,11 +1336,11 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 
 	private void mostrarActivitatEsportiva(ActivitatEsportiva a)
 	{
-		String	dies = "";
-		String	dataInici = "";
-		String	dataFi = "";
-		String	horaInici = "";
-		String	horaFi = "";
+		String		dies = "";
+		String		dataInici = "";
+		String		dataFi = "";
+		String		horaInici = "";
+		String		horaFi = "";
 		LocalTime	aux = null;
 
 		for (String s : a.getDies())
@@ -1446,6 +1468,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		adr = adresaActivitatE.getText();
 		pob = poblacioActivitatE.getText();
+		pob = ferPrimeraLletraMajuscula(pob);
 		dies = diesEsportiva();
 		if (dies == null)
 		{
@@ -1522,6 +1545,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		adr = adresaActivitatC.getText();
 		pob = poblacioActivitatC.getText();
+		pob = ferPrimeraLletraMajuscula(pob);
 		preu = (double)preuActivitatC.getValue();
 		auxData = dataActivitatCultural.getDate();
 		if (auxData == null)
@@ -1569,6 +1593,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		}
 		adr = adresaActivitatF.getText();
 		pob = poblacioActivitatF.getText();
+		pob = ferPrimeraLletraMajuscula(pob);
 		durada = (double)duracioActivitatF.getValue();
 		if (durada == 0)
 		{
@@ -1741,6 +1766,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 
 		if (s.isEmpty() || s.isBlank())
 			return (null);
+		s = ferPrimeraLletraMajuscula(s);
 		return (s);
 	}
 
@@ -1780,4 +1806,15 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		return (s);
 	}
 
+	private String ferPrimeraLletraMajuscula(String str)
+	{
+		char	c;
+		String	nova;
+	
+        if (str == null || str.isEmpty() || str.isBlank())
+            return str;
+        c = Character.toUpperCase(str.charAt(0));
+        nova = str.substring(1);
+        return (c + nova);
+    }
 }
