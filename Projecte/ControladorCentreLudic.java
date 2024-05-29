@@ -221,7 +221,8 @@ public class ControladorCentreLudic
 			vista.mostrarMissatgeError("El telefon només pot contenir números", "Error al inscriure participant");
 		else if (nomActivitat != null && dni != null && telefon != null)
 		{
-			if (!model.inscriurePersonaActivitat(nomActivitat, dni, telefon))
+			Persona p = new Persona(dni, telefon);
+			if (!model.inscriurePersonaActivitat(nomActivitat, p))
 				vista.mostrarMissatgeError("No s'ha pogut inscriure un nou participant", "Error al inscriure");
 			else
 			{

@@ -76,10 +76,9 @@ public class CentreLudic implements IModelCentreLudic, Serializable
 		return (false);
 	}
 
-	public boolean inscriurePersonaActivitat(String nomActivitat, String dni, String tel)
+	public boolean inscriurePersonaActivitat(String nomActivitat, Persona p)
 	{
 		Activitat	a = this.activitats.get(nomActivitat);
-		Persona		p = new Persona(dni, tel);
 
 		if (a != null)
 			return (a.ferInscripcio(p));
