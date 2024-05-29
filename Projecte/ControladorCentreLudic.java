@@ -20,8 +20,8 @@ public class ControladorCentreLudic
 
 	protected void iniciarVista()
 	{
-		Iterable<Activitat> llistaActivitats = model.consultarActivitats(1, 0, null);
-		vista.mostrarLlistaActivitats(llistaActivitats);
+		//Iterable<Activitat> llistaActivitats = model.consultarActivitats(1, 0, null);
+		//vista.mostrarLlistaActivitats(llistaActivitats);
 	}
 
 	protected void initListeners()
@@ -82,14 +82,17 @@ public class ControladorCentreLudic
 				teclaCancelarInscripcioPulsada();
 			}
 		});
-		vista.addListenerTornarDeConsultaAOpcions(new ActionListener()
-		{
+		vista.addListenerConsultarActivitats(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
 			{
+				vista.clearActivitatCultural();
+				vista.clearActivitatEsportiva();
+				vista.clearActivitatFormativa();
+				vista.clearInscriureParticipant();
+				vista.clearEliminarParticipant();
 				vista.clearActivitatEscollida();
-				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 				vista.clearFiltres();
-				vista.extrasTornarAOpcions();
+				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 		});
 	}
@@ -108,7 +111,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatEsportiva();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat esportiva");
-				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
+				//vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 		}
 	}
@@ -127,7 +130,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatCultural();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat cultural");
-				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
+				//vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}
 		}
 	}
@@ -146,7 +149,7 @@ public class ControladorCentreLudic
 					vista.mostrarMissatgeWarning("La informació no s'ha pogut desar correctament", "Error al guardar automaticament");
 				vista.clearActivitatFormativa();
 				vista.mostrarMissatgeSuccess("Activitat creada correctament!", "Creació d'activitat formativa");
-				vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
+				//vista.mostrarLlistaActivitats(model.consultarActivitats(1, 0, null));
 			}	
 		}
 	}

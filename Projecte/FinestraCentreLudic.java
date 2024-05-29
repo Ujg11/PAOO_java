@@ -252,19 +252,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 				showCardPanelPrincipal("PanelCrearActivitat");
 			}
 		});
-		this.consultarLlistaActivitats.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				clearActivitatCultural();
-				clearActivitatEsportiva();
-				clearActivitatFormativa();
-				clearInscriureParticipant();
-				clearEliminarParticipant();
-				clearActivitatEscollida();
-				showCardPanelPrincipal("PanelLlistaActivitats");
-			}
-		});
 	}
 
 	//Panel per crear les activitats on primer hi haura un JComboBox per escullir el tipus d'activitat
@@ -846,21 +833,9 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		((CardLayout) this.panelLlistaActivitats.getLayout()).show(panelLlistaActivitats, card);
 	}
 	
-	//private void addOyentesItemsPanelLlistarActivitats()
-	//{
-	//	this.tornarDeConsultaAOpcions.addActionListener(new ActionListener()
-	//	{
-	//		public void actionPerformed(ActionEvent e)
-	//		{
-//
-	//			clearActivitatEscollida();
-	//			showCardPanelLlistarActivitats("Opcions");
-	//		}
-	//	});
-	//}
-
-	public void addListenerTornarDeConsultaAOpcions(ActionListener l)
+	public void	addListenerConsultarActivitats(ActionListener l)
 	{
+		this.consultarLlistaActivitats.addActionListener(l);
 		this.tornarDeConsultaAOpcions.addActionListener(l);
 	}
 
@@ -869,11 +844,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		poblacioFiltre.setText("");
 		admetInscripcions.setSelectedItem("Indiferent");
 		tipusActivitatFiltre.setSelectedItem("Indiferent");
-	}
-
-	public void extrasTornarAOpcions()
-	{
-		showCardPanelLlistarActivitats("Opcions");
 	}
 
 	private JPanel crearPanelOpcions()
@@ -1288,6 +1258,9 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			}
 			this.llistaActivitats.setText(s);
 		}
+		this.llistaActivitats.setCaretPosition(0);
+		showCardPanelPrincipal("PanelLlistaActivitats");
+		showCardPanelLlistarActivitats("Opcions");
 	}
 
 	public void mostrarLlistaParticipants(Iterable<Persona> llista)
