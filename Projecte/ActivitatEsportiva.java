@@ -5,15 +5,10 @@ public class ActivitatEsportiva extends Activitat
 {
 	private String[] dies;
 
-	// Inicializar con una fecha específica (año, mes, día)
-	//LocalDate fechaEspecifica = LocalDate.of(2022, 5, 8);
 	private LocalDate dataInici;
 	private LocalDate dataFi;
-
-	// Inicializar con una hora específica (hora, minuto, segundo)
-	//LocalTime horaEspecifica = LocalTime.of(14, 30, 0);
-	private LocalTime[] horaInici;
-	private LocalTime[] horaFi;
+	private LocalTime[] horesInici;
+	private LocalTime[] horesFi;
 
 	public ActivitatEsportiva(String nom, String des, int maxPart, String a, String p, String[] dies, LocalDate dataIcici,
 						LocalDate dataFi, LocalTime[] horaInici, LocalTime[] horaFi)
@@ -22,8 +17,8 @@ public class ActivitatEsportiva extends Activitat
 		this.dies = dies;
 		this.dataInici = dataIcici;
 		this.dataFi = dataFi;
-		this.horaInici = horaInici;
-		this.horaFi = horaFi;
+		this.horesInici = horaInici;
+		this.horesFi = horaFi;
 	}
 
 	public boolean esPossibleInscriures(LocalDate data)
@@ -89,19 +84,19 @@ public class ActivitatEsportiva extends Activitat
 		this.dataFi = dataFi;
 	}
 
-	public LocalTime[] getHoraInici() {
-		return horaInici;
+	public LocalTime[] getHoresInici() {
+		return horesInici;
 	}
 
-	public void setHoraInici(LocalTime[] horaInici) {
-		this.horaInici = horaInici;
+	public void setHoresInici(LocalTime[] horaInici) {
+		this.horesInici = horaInici;
 	}
 
-	public LocalTime[] getHoraFi() {
-		return horaFi;
+	public LocalTime[] getHoresFi() {
+		return horesFi;
 	}
 
-	public void setHoraFi(LocalTime[] horaFi) {
-		this.horaFi = horaFi;
+	public void setHoresFi(LocalTime[] horaFi) {
+		this.horesFi = horaFi;
 	}
 }

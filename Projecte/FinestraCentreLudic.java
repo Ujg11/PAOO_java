@@ -13,10 +13,8 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -75,8 +73,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			private JPanel	panelActivitatEsportiva;
 				private JTextField		nomActivitatE, descripcioActivitatE, adresaActivitatE,
 										poblacioActivitatE;
-				private JSpinner		numMaximParticipantsE, horaIniciEsportiva, minIniciEsportiva, horaFiEsportiva, minFiEsportiva;
+				private JSpinner		numMaximParticipantsE; //horaIniciEsportiva, minIniciEsportiva, horaFiEsportiva, minFiEsportiva;
 				private JCheckBox		dilluns, dimarts, dimecres, dijous, divendres, dissabte;
+				private JSpinner		dillHor, dillMin, dimaHor, dimaMin, dimeHor, dimeMin, dijHor, dijMin, divHor, divMin, dissHor, dissMin;
+				private JSpinner		dillHorFi, dillMinFi, dimaHorFi, dimaMinFi, dimeHorFi, dimeMinFi, dijHorFi, dijMinFi, divHorFi, divMinFi, dissHorFi, dissMinFi;
 				private JDateChooser	dataIniciEsportiva;
 				private JDateChooser	dataFiEsportiva;
 				private JButton			botoInserirNovaActivitatE, botoClearAE, botoTornarAE;
@@ -118,8 +118,9 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 				//Panell consulta info AEsportiva
 				private JPanel		panelConsultaAEsportiva;
 					private JTextField	consultaDiesAE, consultaDataIniciAE, consultaDataFiAE;
-					private JTextField	consultaHIniciAE, consultaHFiAE;
-				
+					//private JTextField	consultaHIniciAE, consultaHFiAE;
+					private JTextField	conHIDill, conHIDima, conHIDime, conHIDij, conHIDiv, conHIDis;
+					private JTextField	conHFDill, conHFDima, conHFDime, conHFDij, conHFDiv, conHFDis;
 				
 				//Panell consulta info ACultural
 				private JPanel	panelConsultaACultural;
@@ -371,10 +372,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		adresaActivitatE.setText("Adreça");
 		poblacioActivitatE.setText("Població");
 		numMaximParticipantsE.setValue(0);
-		horaIniciEsportiva.setValue(0);
-		minIniciEsportiva.setValue(0);
-		horaFiEsportiva.setValue(0);
-		minFiEsportiva.setValue(0);
+		//horaIniciEsportiva.setValue(0);
+		//minIniciEsportiva.setValue(0);
+		//horaFiEsportiva.setValue(0);
+		//minFiEsportiva.setValue(0);
 		dilluns.setSelected(false);
 		dimarts.setSelected(false);
 		dimecres.setSelected(false);
@@ -383,6 +384,30 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		dissabte.setSelected(false);
 		dataIniciEsportiva.setDate(null);
 		dataFiEsportiva.setDate(null);
+		dillHor.setValue(0);
+		dillMin.setValue(0);
+		dimaHor.setValue(0);
+		dimaMin.setValue(0);
+		dimeHor.setValue(0);
+		dimeMin.setValue(0);
+		dijHor.setValue(0);
+		dijMin.setValue(0);
+		divHor.setValue(0);
+		divMin.setValue(0);
+		dissHor.setValue(0);
+		dissMin.setValue(0);
+		dillHorFi.setValue(0);
+		dillMinFi.setValue(0);
+		dimaHorFi.setValue(0);
+		dimaMinFi.setValue(0);
+		dimeHorFi.setValue(0);
+		dimeMinFi.setValue(0);
+		dijHorFi.setValue(0);
+		dijMinFi.setValue(0);
+		divHorFi.setValue(0);
+		divMinFi.setValue(0);
+		dissHorFi.setValue(0);
+		dissMinFi.setValue(0);
 	}
 
 	public void clearActivitatFormativa()
@@ -426,7 +451,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		this.panelActivitatEsportiva = new JPanel();
 		this.panelActivitatEsportiva.setLayout(new BoxLayout(this.panelActivitatEsportiva, BoxLayout.Y_AXIS));
 		this.panelActivitatEsportiva.setBorder(BorderFactory.createTitledBorder("Creació activitat esportiva"));
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
 
 		JPanel linea1 = new JPanel();
 		linea1.setLayout(new BoxLayout(linea1, BoxLayout.X_AXIS));
@@ -442,7 +467,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea1.add(this.descripcioActivitatE);
 		linea1.add(Box.createHorizontalStrut(20));
 		this.panelActivitatEsportiva.add(linea1);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 
 		JPanel linea2 = new JPanel();
 		linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
@@ -463,7 +488,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea2.add(this.adresaActivitatE);
 		linea2.add(Box.createHorizontalStrut(20));
 		this.panelActivitatEsportiva.add(linea2);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 
 		JPanel linea2_1 = new JPanel();
 		linea2_1.setLayout(new BoxLayout(linea2_1, BoxLayout.X_AXIS));
@@ -474,12 +499,12 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea2_1.add(this.poblacioActivitatE);
 		linea2_1.add(Box.createHorizontalStrut(280));
 		this.panelActivitatEsportiva.add(linea2_1);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 
 		JPanel linea3 = new JPanel();
 		linea3.setLayout(new BoxLayout(linea3, BoxLayout.X_AXIS));
-		linea3.add(Box.createHorizontalStrut(20));
-		linea3.add(new JLabel("Escull els dies de la setmana en que es realitzarà l'activitat (diumenge tancat)"));
+		linea3.add(Box.createHorizontalStrut(10));
+		linea3.add(new JLabel("Escull els dies de la setmana en que es realitzarà l'activitat i tria l'horari. Nomes es guardarà l'horari dels marcats"));
 		linea3.add(Box.createHorizontalStrut(20));
 		this.panelActivitatEsportiva.add(linea3);
 		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
@@ -506,7 +531,306 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea4.add(this.dissabte);
 		linea4.add(Box.createHorizontalStrut(15));
 		this.panelActivitatEsportiva.add(linea4);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(5));
+
+		JPanel linea4_1 = new JPanel();
+		linea4_1.setLayout(new BoxLayout(linea4_1, BoxLayout.X_AXIS));
+		linea4_1.add(Box.createHorizontalStrut(30));
+		linea4_1.add(new JLabel("Horari d'inici de les activitats:"));
+		this.panelActivitatEsportiva.add(linea4_1);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
+
+		JPanel linea4_2 = new JPanel();
+		linea4_2.setLayout(new BoxLayout(linea4_2, BoxLayout.X_AXIS));
+		linea4_2.add(Box.createHorizontalStrut(20));
+		linea4_2.add(new JLabel("Dilluns:"));
+		linea4_2.add(Box.createHorizontalStrut(10));
+		
+		SpinnerNumberModel horesModelDill = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dillHor = new JSpinner(horesModelDill);
+		DefaultEditor editorDillH = new JSpinner.DefaultEditor(dillHor);
+		editorDillH.getTextField().setColumns(2);
+		editorDillH.getTextField().setEditable(false);
+		this.dillHor.setEditor(editorDillH);
+		linea4_2.add(this.dillHor);
+		linea4_2.add(new JLabel("h"));
+		linea4_2.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDill = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dillMin = new JSpinner(minModelDill);
+		DefaultEditor editorDillM = new JSpinner.DefaultEditor(dillMin);
+		editorDillM.getTextField().setColumns(2);
+		editorDillM.getTextField().setEditable(false);
+		this.dillMin.setEditor(editorDillM);
+		linea4_2.add(this.dillMin);
+		linea4_2.add(new JLabel("min"));
+		linea4_2.add(Box.createHorizontalStrut(10));
+
+		linea4_2.add(new JLabel("Dimarts:"));
+		linea4_2.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDima = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dimaHor = new JSpinner(horesModelDima);
+		JSpinner.DefaultEditor editorDimaH = new JSpinner.DefaultEditor(this.dimaHor);
+		editorDimaH.getTextField().setColumns(2);
+		editorDimaH.getTextField().setEditable(false);
+		this.dimaHor.setEditor(editorDimaH);
+		linea4_2.add(this.dimaHor);
+		linea4_2.add(new JLabel("h"));
+		linea4_2.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDima = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dimaMin = new JSpinner(minModelDima);
+		JSpinner.DefaultEditor editorDimaM = new JSpinner.DefaultEditor(this.dimaMin);
+		editorDimaM.getTextField().setColumns(2);
+		editorDimaM.getTextField().setEditable(false);
+		this.dimaMin.setEditor(editorDimaM);
+		linea4_2.add(this.dimaMin);
+		linea4_2.add(new JLabel("min"));
+		linea4_2.add(Box.createHorizontalStrut(10));
+
+		linea4_2.add(new JLabel("Dimecres:"));
+		linea4_2.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDime = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dimeHor = new JSpinner(horesModelDime);
+		JSpinner.DefaultEditor editorDimeH = new JSpinner.DefaultEditor(this.dimeHor);
+		editorDimeH.getTextField().setColumns(2);
+		editorDimeH.getTextField().setEditable(false);
+		this.dimeHor.setEditor(editorDimeH);
+		linea4_2.add(this.dimeHor);
+		linea4_2.add(new JLabel("h"));
+		linea4_2.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDime = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dimeMin = new JSpinner(minModelDime);
+		JSpinner.DefaultEditor editorDimeM = new JSpinner.DefaultEditor(this.dimeMin);
+		editorDimeM.getTextField().setColumns(2);
+		editorDimeM.getTextField().setEditable(false);
+		this.dimeMin.setEditor(editorDimeM);
+		linea4_2.add(this.dimeMin);
+		linea4_2.add(new JLabel("min"));
+		linea4_2.add(Box.createHorizontalStrut(30));
+
+		this.panelActivitatEsportiva.add(linea4_2);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
+
+		JPanel linea4_3 = new JPanel();
+		linea4_3.setLayout(new BoxLayout(linea4_3, BoxLayout.X_AXIS));
+		linea4_3.add(Box.createHorizontalStrut(20));
+
+		linea4_3.add(new JLabel("Dijous:"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDij = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dijHor = new JSpinner(horesModelDij);
+		JSpinner.DefaultEditor editorDijH = new JSpinner.DefaultEditor(this.dijHor);
+		editorDijH.getTextField().setColumns(2);
+		editorDijH.getTextField().setEditable(false);
+		this.dijHor.setEditor(editorDijH);
+		linea4_3.add(this.dijHor);
+		linea4_3.add(new JLabel("h"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDij = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dijMin = new JSpinner(minModelDij);
+		JSpinner.DefaultEditor editorDijM = new JSpinner.DefaultEditor(this.dijMin);
+		editorDijM.getTextField().setColumns(2);
+		editorDijM.getTextField().setEditable(false);
+		this.dijMin.setEditor(editorDijM);
+		linea4_3.add(this.dijMin);
+		linea4_3.add(new JLabel("min"));
+		linea4_3.add(Box.createHorizontalStrut(10));
+
+		linea4_3.add(new JLabel("Divendres:"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDiv = new SpinnerNumberModel(0, 0, 23, 1);
+		this.divHor = new JSpinner(horesModelDiv);
+		JSpinner.DefaultEditor editorDivH = new JSpinner.DefaultEditor(this.divHor);
+		editorDivH.getTextField().setColumns(2);
+		editorDivH.getTextField().setEditable(false);
+		this.divHor.setEditor(editorDivH);
+		linea4_3.add(this.divHor);
+		linea4_3.add(new JLabel("h"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDiv = new SpinnerNumberModel(0, 0, 45, 15);
+		this.divMin = new JSpinner(minModelDiv);
+		JSpinner.DefaultEditor editorDivM = new JSpinner.DefaultEditor(this.divMin);
+		editorDivM.getTextField().setColumns(2);
+		editorDivM.getTextField().setEditable(false);
+		this.divMin.setEditor(editorDivM);
+		linea4_3.add(this.divMin);
+		linea4_3.add(new JLabel("min"));
+		linea4_3.add(Box.createHorizontalStrut(10));
+
+		linea4_3.add(new JLabel("Dissabte:"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDiss = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dissHor = new JSpinner(horesModelDiss);
+		JSpinner.DefaultEditor editorDissH = new JSpinner.DefaultEditor(this.dissHor);
+		editorDissH.getTextField().setColumns(2);
+		editorDissH.getTextField().setEditable(false);
+		this.dissHor.setEditor(editorDissH);
+		linea4_3.add(this.dissHor);
+		linea4_3.add(new JLabel("h"));
+		linea4_3.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDiss = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dissMin = new JSpinner(minModelDiss);
+		JSpinner.DefaultEditor editorDissM = new JSpinner.DefaultEditor(this.dissMin);
+		editorDissM.getTextField().setColumns(2);
+		editorDissM.getTextField().setEditable(false);
+		this.dissMin.setEditor(editorDissM);
+		linea4_3.add(this.dissMin);
+		linea4_3.add(new JLabel("min"));
+		linea4_3.add(Box.createHorizontalStrut(30));
+
+		this.panelActivitatEsportiva.add(linea4_3);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(5));
+
+		JPanel linea4_4 = new JPanel();
+		linea4_4.setLayout(new BoxLayout(linea4_4, BoxLayout.X_AXIS));
+		linea4_4.add(Box.createHorizontalStrut(30));
+		linea4_4.add(new JLabel("Horari de fi de les activitats:"));
+		this.panelActivitatEsportiva.add(linea4_4);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
+
+		JPanel linea4_5 = new JPanel();
+		linea4_5.setLayout(new BoxLayout(linea4_5, BoxLayout.X_AXIS));
+		linea4_5.add(Box.createHorizontalStrut(20));
+		linea4_5.add(new JLabel("Dilluns:"));
+		linea4_5.add(Box.createHorizontalStrut(10));
+		
+		SpinnerNumberModel horesModelDillFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dillHorFi = new JSpinner(horesModelDillFi);
+		DefaultEditor editorDillHFi = new JSpinner.DefaultEditor(dillHorFi);
+		editorDillHFi.getTextField().setColumns(2);
+		editorDillHFi.getTextField().setEditable(false);
+		this.dillHorFi.setEditor(editorDillHFi);
+		linea4_5.add(this.dillHorFi);
+		linea4_5.add(new JLabel("h"));
+		linea4_5.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDillFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dillMinFi = new JSpinner(minModelDillFi);
+		DefaultEditor editorDillMFi = new JSpinner.DefaultEditor(dillMinFi);
+		editorDillMFi.getTextField().setColumns(2);
+		editorDillMFi.getTextField().setEditable(false);
+		this.dillMinFi.setEditor(editorDillMFi);
+		linea4_5.add(this.dillMinFi);
+		linea4_5.add(new JLabel("min"));
+		linea4_5.add(Box.createHorizontalStrut(10));
+
+		linea4_5.add(new JLabel("Dimarts:"));
+		linea4_5.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDimaFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dimaHorFi = new JSpinner(horesModelDimaFi);
+		JSpinner.DefaultEditor editorDimaHFi = new JSpinner.DefaultEditor(this.dimaHorFi);
+		editorDimaHFi.getTextField().setColumns(2);
+		editorDimaHFi.getTextField().setEditable(false);
+		this.dimaHorFi.setEditor(editorDimaHFi);
+		linea4_5.add(this.dimaHorFi);
+		linea4_5.add(new JLabel("h"));
+		linea4_5.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDimaFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dimaMinFi = new JSpinner(minModelDimaFi);
+		JSpinner.DefaultEditor editorDimaMFi = new JSpinner.DefaultEditor(this.dimaMinFi);
+		editorDimaMFi.getTextField().setColumns(2);
+		editorDimaMFi.getTextField().setEditable(false);
+		this.dimaMinFi.setEditor(editorDimaMFi);
+		linea4_5.add(this.dimaMinFi);
+		linea4_5.add(new JLabel("min"));
+		linea4_5.add(Box.createHorizontalStrut(10));
+
+		linea4_5.add(new JLabel("Dimecres:"));
+		linea4_5.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDimeFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dimeHorFi = new JSpinner(horesModelDimeFi);
+		JSpinner.DefaultEditor editorDimeHFi = new JSpinner.DefaultEditor(this.dimeHorFi);
+		editorDimeHFi.getTextField().setColumns(2);
+		editorDimeHFi.getTextField().setEditable(false);
+		this.dimeHorFi.setEditor(editorDimeHFi);
+		linea4_5.add(this.dimeHorFi);
+		linea4_5.add(new JLabel("h"));
+		linea4_5.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDimeFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dimeMinFi = new JSpinner(minModelDimeFi);
+		JSpinner.DefaultEditor editorDimeMFi = new JSpinner.DefaultEditor(this.dimeMinFi);
+		editorDimeMFi.getTextField().setColumns(2);
+		editorDimeMFi.getTextField().setEditable(false);
+		this.dimeMinFi.setEditor(editorDimeMFi);
+		linea4_5.add(this.dimeMinFi);
+		linea4_5.add(new JLabel("min"));
+		linea4_5.add(Box.createHorizontalStrut(30));
+
+		this.panelActivitatEsportiva.add(linea4_5);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(10));
+
+		JPanel linea4_6 = new JPanel();
+		linea4_6.setLayout(new BoxLayout(linea4_6, BoxLayout.X_AXIS));
+		linea4_6.add(Box.createHorizontalStrut(20));
+
+		linea4_6.add(new JLabel("Dijous:"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDijFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dijHorFi = new JSpinner(horesModelDijFi);
+		JSpinner.DefaultEditor editorDijHFi = new JSpinner.DefaultEditor(this.dijHorFi);
+		editorDijHFi.getTextField().setColumns(2);
+		editorDijHFi.getTextField().setEditable(false);
+		this.dijHorFi.setEditor(editorDijHFi);
+		linea4_6.add(this.dijHorFi);
+		linea4_6.add(new JLabel("h"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDijFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dijMinFi = new JSpinner(minModelDijFi);
+		JSpinner.DefaultEditor editorDijMFi = new JSpinner.DefaultEditor(this.dijMinFi);
+		editorDijMFi.getTextField().setColumns(2);
+		editorDijMFi.getTextField().setEditable(false);
+		this.dijMinFi.setEditor(editorDijMFi);
+		linea4_6.add(this.dijMinFi);
+		linea4_6.add(new JLabel("min"));
+		linea4_6.add(Box.createHorizontalStrut(10));
+
+		linea4_6.add(new JLabel("Divendres:"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDivFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.divHorFi = new JSpinner(horesModelDivFi);
+		JSpinner.DefaultEditor editorDivHFi = new JSpinner.DefaultEditor(this.divHorFi);
+		editorDivHFi.getTextField().setColumns(2);
+		editorDivHFi.getTextField().setEditable(false);
+		this.divHorFi.setEditor(editorDivHFi);
+		linea4_6.add(this.divHorFi);
+		linea4_6.add(new JLabel("h"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDivFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.divMinFi = new JSpinner(minModelDivFi);
+		JSpinner.DefaultEditor editorDivMFi = new JSpinner.DefaultEditor(this.divMinFi);
+		editorDivMFi.getTextField().setColumns(2);
+		editorDivMFi.getTextField().setEditable(false);
+		this.divMinFi.setEditor(editorDivMFi);
+		linea4_6.add(this.divMinFi);
+		linea4_6.add(new JLabel("min"));
+		linea4_6.add(Box.createHorizontalStrut(10));
+
+		linea4_6.add(new JLabel("Dissabte:"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel horesModelDissFi = new SpinnerNumberModel(0, 0, 23, 1);
+		this.dissHorFi = new JSpinner(horesModelDissFi);
+		JSpinner.DefaultEditor editorDissHFi = new JSpinner.DefaultEditor(this.dissHorFi);
+		editorDissHFi.getTextField().setColumns(2);
+		editorDissHFi.getTextField().setEditable(false);
+		this.dissHorFi.setEditor(editorDissHFi);
+		linea4_6.add(this.dissHorFi);
+		linea4_6.add(new JLabel("h"));
+		linea4_6.add(Box.createHorizontalStrut(5));
+		SpinnerNumberModel minModelDissFi = new SpinnerNumberModel(0, 0, 45, 15);
+		this.dissMinFi = new JSpinner(minModelDissFi);
+		JSpinner.DefaultEditor editorDissMFi = new JSpinner.DefaultEditor(this.dissMinFi);
+		editorDissMFi.getTextField().setColumns(2);
+		editorDissMFi.getTextField().setEditable(false);
+		this.dissMinFi.setEditor(editorDissMFi);
+		linea4_6.add(this.dissMinFi);
+		linea4_6.add(new JLabel("min"));
+		linea4_6.add(Box.createHorizontalStrut(30));
+
+		this.panelActivitatEsportiva.add(linea4_6);
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
+
+
+
+
+
 
 		JPanel linea5 = new JPanel();
 		linea5.setLayout(new BoxLayout(linea5, BoxLayout.X_AXIS));
@@ -522,54 +846,54 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea5.add(this.dataFiEsportiva);
 		linea5.add(Box.createHorizontalStrut(140));
 		this.panelActivitatEsportiva.add(linea5);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 
-		JPanel linea6 = new JPanel();
-		linea6.setLayout(new BoxLayout(linea6, BoxLayout.X_AXIS));
-		linea6.add(Box.createHorizontalStrut(20));
-		linea6.add(new JLabel("Hora d'inici de l'activitat:"));
-		linea6.add(Box.createHorizontalStrut(15));
-		SpinnerNumberModel horaIniciModel = new SpinnerNumberModel(0, 0, 23, 1);
-		this.horaIniciEsportiva = new JSpinner(horaIniciModel);
-		DefaultEditor editor2 = new JSpinner.DefaultEditor(horaIniciEsportiva);
-		editor2.getTextField().setColumns(3);
-		editor2.getTextField().setEditable(false);
-		this.horaIniciEsportiva.setEditor(editor2);
-		linea6.add(this.horaIniciEsportiva);
-		linea6.add(new JLabel("h"));
-		linea6.add(Box.createHorizontalStrut(10));
-		SpinnerNumberModel minIniciModel = new SpinnerNumberModel(0, 0, 59, 1);
-		this.minIniciEsportiva = new JSpinner(minIniciModel);
-		DefaultEditor editor3 = new JSpinner.DefaultEditor(minIniciEsportiva);
-		editor3.getTextField().setColumns(3);
-		editor3.getTextField().setEditable(false);
-		this.minIniciEsportiva.setEditor(editor3);
-		linea6.add(this.minIniciEsportiva);
-		linea6.add(new JLabel("min"));
-		linea6.add(Box.createHorizontalStrut(20));
+		//JPanel linea6 = new JPanel();
+		//linea6.setLayout(new BoxLayout(linea6, BoxLayout.X_AXIS));
+		//linea6.add(Box.createHorizontalStrut(20));
+		//linea6.add(new JLabel("Hora d'inici de l'activitat:"));
+		//linea6.add(Box.createHorizontalStrut(15));
+		//SpinnerNumberModel horaIniciModel = new SpinnerNumberModel(0, 0, 23, 1);
+		//this.horaIniciEsportiva = new JSpinner(horaIniciModel);
+		//DefaultEditor editor2 = new JSpinner.DefaultEditor(horaIniciEsportiva);
+		//editor2.getTextField().setColumns(3);
+		//editor2.getTextField().setEditable(false);
+		//this.horaIniciEsportiva.setEditor(editor2);
+		//linea6.add(this.horaIniciEsportiva);
+		//linea6.add(new JLabel("h"));
+		//linea6.add(Box.createHorizontalStrut(10));
+		//SpinnerNumberModel minIniciModel = new SpinnerNumberModel(0, 0, 59, 1);
+		//this.minIniciEsportiva = new JSpinner(minIniciModel);
+		//DefaultEditor editor3 = new JSpinner.DefaultEditor(minIniciEsportiva);
+		//editor3.getTextField().setColumns(3);
+		//editor3.getTextField().setEditable(false);
+		//this.minIniciEsportiva.setEditor(editor3);
+		//linea6.add(this.minIniciEsportiva);
+		//linea6.add(new JLabel("min"));
+		//linea6.add(Box.createHorizontalStrut(20));
 
-		linea6.add(new JLabel("Hora de fi de l'activitat:"));
-		linea6.add(Box.createHorizontalStrut(15));
-		SpinnerNumberModel horaFiModel = new SpinnerNumberModel(0, 0, 23, 1);
-		this.horaFiEsportiva = new JSpinner(horaFiModel);
-		DefaultEditor editor4 = new JSpinner.DefaultEditor(horaFiEsportiva);
-		editor4.getTextField().setColumns(3);
-		editor4.getTextField().setEditable(false);
-		this.horaFiEsportiva.setEditor(editor4);
-		linea6.add(this.horaFiEsportiva);
-		linea6.add(new JLabel("h"));
-		linea6.add(Box.createHorizontalStrut(10));
-		SpinnerNumberModel minFiModel = new SpinnerNumberModel(0, 0, 59, 1);
-		this.minFiEsportiva = new JSpinner(minFiModel);
-		DefaultEditor editor5 = new JSpinner.DefaultEditor(minFiEsportiva);
-		editor5.getTextField().setColumns(3);
-		editor5.getTextField().setEditable(false);
-		this.minFiEsportiva.setEditor(editor5);
-		linea6.add(this.minFiEsportiva);
-		linea6.add(new JLabel("min"));
-		linea6.add(Box.createHorizontalStrut(20));
-		this.panelActivitatEsportiva.add(linea6);
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(20));
+		//linea6.add(new JLabel("Hora de fi de l'activitat:"));
+		//linea6.add(Box.createHorizontalStrut(15));
+		//SpinnerNumberModel horaFiModel = new SpinnerNumberModel(0, 0, 23, 1);
+		//this.horaFiEsportiva = new JSpinner(horaFiModel);
+		//DefaultEditor editor4 = new JSpinner.DefaultEditor(horaFiEsportiva);
+		//editor4.getTextField().setColumns(3);
+		//editor4.getTextField().setEditable(false);
+		//this.horaFiEsportiva.setEditor(editor4);
+		//linea6.add(this.horaFiEsportiva);
+		//linea6.add(new JLabel("h"));
+		//linea6.add(Box.createHorizontalStrut(10));
+		//SpinnerNumberModel minFiModel = new SpinnerNumberModel(0, 0, 59, 1);
+		//this.minFiEsportiva = new JSpinner(minFiModel);
+		//DefaultEditor editor5 = new JSpinner.DefaultEditor(minFiEsportiva);
+		//editor5.getTextField().setColumns(3);
+		//editor5.getTextField().setEditable(false);
+		//this.minFiEsportiva.setEditor(editor5);
+		//linea6.add(this.minFiEsportiva);
+		//linea6.add(new JLabel("min"));
+		//linea6.add(Box.createHorizontalStrut(20));
+		//this.panelActivitatEsportiva.add(linea6);
+		//this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 
 		JPanel linea7 = new JPanel();
 		linea7.setLayout(new BoxLayout(linea7, BoxLayout.X_AXIS));
@@ -581,11 +905,11 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea7.add(this.botoInserirNovaActivitatE);
 		this.panelActivitatEsportiva.add(linea7);
 
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(60));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(15));
 		this.botoTornarAE = new JButton("Tornar Inici");
 		this.panelActivitatEsportiva.add(this.botoTornarAE);
 
-		this.panelActivitatEsportiva.add(Box.createVerticalStrut(280));
+		this.panelActivitatEsportiva.add(Box.createVerticalStrut(30));
 		return (this.panelActivitatEsportiva);
 	}
 
@@ -927,7 +1251,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	{
 		this.panelConsultarActivitat = new JPanel();
 		this.panelConsultarActivitat.setLayout(new BoxLayout(this.panelConsultarActivitat, BoxLayout.Y_AXIS));
-		this.panelConsultarActivitat.add(Box.createVerticalStrut(20));
 
 		this.panelConsultaInfoComuna = new JPanel();
 		this.panelConsultaInfoComuna.setLayout(new BoxLayout(this.panelConsultaInfoComuna, BoxLayout.Y_AXIS));
@@ -979,14 +1302,14 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea3.add(this.consultaPoblacio);
 		linea3.add(Box.createHorizontalStrut(300));
 		this.panelConsultaInfoComuna.add(linea3);
-		this.panelConsultaInfoComuna.add(Box.createVerticalStrut(20));
+		this.panelConsultaInfoComuna.add(Box.createVerticalStrut(10));
 
 		this.panelConsultarActivitat.add(this.panelConsultaInfoComuna);
 		this.panelConsultarActivitat.add(Box.createVerticalStrut(10));
 		this.panelConsultarActivitat.add(crearPanelParticularConsulta());
 		this.panelConsultarActivitat.add(Box.createVerticalStrut(5));
 		this.panelConsultarActivitat.add(crearPanelGestionarActivitat());
-		this.panelConsultarActivitat.add(Box.createVerticalStrut(20));
+		this.panelConsultarActivitat.add(Box.createVerticalStrut(10));
 
 		JPanel panelSut = new JPanel();
 		panelSut.setLayout(new BoxLayout(panelSut, BoxLayout.Y_AXIS));
@@ -1006,12 +1329,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	private JPanel crearPanelParticularConsulta()
 	{
 		this.panelConsultaInfoParticular = new JPanel(new CardLayout());
-
 		//canviara de panell segons el tipus d'activitat escollida
 		this.panelConsultaInfoParticular.add(crearPanelConsultaACultural(), "PanellConsultaCultural");
 		this.panelConsultaInfoParticular.add(crearPanelConsultaEsportiva(), "PanellConsultaEsportiva");
 		this.panelConsultaInfoParticular.add(crearPanelConsultaAFormativa(), "PanellConsultaFormativa");
-
 		return (this.panelConsultaInfoParticular);
 	}
 
@@ -1024,7 +1345,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 	{
 		this.panelConsultaAEsportiva = new JPanel();
 		this.panelConsultaAEsportiva.setLayout(new BoxLayout(this.panelConsultaAEsportiva, BoxLayout.Y_AXIS));
-		this.panelConsultaAEsportiva.add(Box.createVerticalStrut(1));
 
 		JPanel linea1 = new JPanel();
 		linea1.setLayout(new BoxLayout(linea1, BoxLayout.X_AXIS));
@@ -1041,33 +1361,88 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		JPanel linea2 = new JPanel();
 		linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
 		linea2.add(Box.createHorizontalStrut(20));
-		linea2.add(new JLabel("Data d'inici:"));
-		linea2.add(Box.createHorizontalStrut(10));
+		linea2.add(new JLabel("Dilluns:   de "));
+		this.conHIDill = new JTextField("XX:XX");
+		this.conHIDill.setEditable(false);
+		linea2.add(this.conHIDill);
+		linea2.add(new JLabel(" a "));
+		this.conHFDill = new JTextField("XX:XX");
+		this.conHFDill.setEditable(false);
+		linea2.add(this.conHFDill);
+		linea2.add(Box.createHorizontalStrut(20));
+		linea2.add(new JLabel("Dimarts:   de "));
+		this.conHIDima = new JTextField("XX:XX");
+		this.conHIDima.setEditable(false);
+		linea2.add(this.conHIDima);
+		linea2.add(new JLabel(" a "));
+		this.conHFDima = new JTextField("XX:XX");
+		this.conHFDima.setEditable(false);
+		linea2.add(this.conHFDima);
+		linea2.add(Box.createHorizontalStrut(20));
+		linea2.add(new JLabel("Dimecres:   de "));
+		this.conHIDime = new JTextField("XX:XX");
+		this.conHIDime.setEditable(false);
+		linea2.add(this.conHIDime);
+		linea2.add(new JLabel(" a "));
+		this.conHFDime = new JTextField("XX:XX");
+		this.conHFDime.setEditable(false);
+		linea2.add(this.conHFDime);
+		linea2.add(Box.createHorizontalStrut(20));
+		panelConsultaAEsportiva.add(linea2);
+		this.panelConsultaAEsportiva.add(Box.createVerticalStrut(20));
+
+		JPanel linea3 = new JPanel();
+		linea3.setLayout(new BoxLayout(linea3, BoxLayout.X_AXIS));
+		linea3.add(Box.createHorizontalStrut(20));
+		linea3.add(new JLabel("Dijous:   de "));
+		this.conHIDij = new JTextField("XX:XX");
+		this.conHIDij.setEditable(false);
+		linea3.add(this.conHIDij);
+		linea3.add(new JLabel(" a "));
+		this.conHFDij = new JTextField("XX:XX");
+		this.conHFDij.setEditable(false);
+		linea3.add(this.conHFDij);
+		linea3.add(Box.createHorizontalStrut(20));
+		linea3.add(new JLabel("Divendres:   de "));
+		this.conHIDiv = new JTextField("XX:XX");
+		this.conHIDiv.setEditable(false);
+		linea3.add(this.conHIDiv);
+		linea3.add(new JLabel(" a "));
+		this.conHFDiv = new JTextField("XX:XX");
+		this.conHFDiv.setEditable(false);
+		linea3.add(this.conHFDiv);
+		linea3.add(Box.createHorizontalStrut(20));
+		linea3.add(new JLabel("Dissabte:   de "));
+		this.conHIDis = new JTextField("XX:XX");
+		this.conHIDis.setEditable(false);
+		linea3.add(this.conHIDis);
+		linea3.add(new JLabel(" a "));
+		this.conHFDis = new JTextField("XX:XX");
+		this.conHFDis.setEditable(false);
+		linea3.add(this.conHFDis);
+		linea3.add(Box.createHorizontalStrut(20));
+		panelConsultaAEsportiva.add(linea3);
+		this.panelConsultaAEsportiva.add(Box.createVerticalStrut(20));
+
+		JPanel linea4 = new JPanel();
+		linea4.setLayout(new BoxLayout(linea4, BoxLayout.X_AXIS));
+		linea4.add(Box.createHorizontalStrut(20));
+		linea4.add(new JLabel("Data d'inici:"));
+		linea4.add(Box.createHorizontalStrut(10));
 		this.consultaDataIniciAE = new JTextField("__/__/__");
 		this.consultaDataIniciAE.setEditable(false);
-		linea2.add(this.consultaDataIniciAE);
-		linea2.add(Box.createHorizontalStrut(20));
-		linea2.add(new JLabel("Data de fi:"));
-		linea2.add(Box.createHorizontalStrut(10));
+		linea4.add(this.consultaDataIniciAE);
+		linea4.add(Box.createHorizontalStrut(20));
+		linea4.add(new JLabel("Data de fi:"));
+		linea4.add(Box.createHorizontalStrut(10));
 		this.consultaDataFiAE = new JTextField("__/__/__");
 		this.consultaDataFiAE.setEditable(false);
-		linea2.add(this.consultaDataFiAE);
-		linea2.add(Box.createHorizontalStrut(20));
-		linea2.add(new JLabel("Hora d'inici:"));
-		linea2.add(Box.createHorizontalStrut(10));
-		this.consultaHIniciAE =new JTextField("XX:XX");
-		this.consultaHIniciAE.setEditable(false);
-		linea2.add(this.consultaHIniciAE);
-		linea2.add(Box.createHorizontalStrut(20));
-		linea2.add(new JLabel("Hora de fi:"));
-		linea2.add(Box.createHorizontalStrut(10));
-		this.consultaHFiAE =new JTextField("XX:XX");
-		this.consultaHFiAE.setEditable(false);
-		linea2.add(this.consultaHFiAE);
-		linea2.add(Box.createHorizontalStrut(120));
-		panelConsultaAEsportiva.add(linea2);
-
-		this.panelConsultaAEsportiva.add(Box.createVerticalStrut(30));
+		linea4.add(this.consultaDataFiAE);
+		linea4.add(Box.createHorizontalStrut(20));
+		linea4.add(Box.createHorizontalStrut(80));
+		panelConsultaAEsportiva.add(linea4);
+		
+		this.panelConsultaAEsportiva.add(Box.createVerticalStrut(10));
 		return (this.panelConsultaAEsportiva);
 	}
 
@@ -1162,7 +1537,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea1.add(s);
 		linea1.add(Box.createHorizontalStrut(200));
 		this.panelGestionarActivitat.add(linea1);
-		this.panelGestionarActivitat.add(Box.createVerticalStrut(20));
+		this.panelGestionarActivitat.add(Box.createVerticalStrut(15));
 
 		JPanel linea2 = new JPanel();
 		linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
@@ -1199,7 +1574,7 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		linea3.add(this.cancelarInsBoto);
 		linea3.add(Box.createHorizontalStrut(20));
 		this.panelGestionarActivitat.add(linea3);
-		this.panelGestionarActivitat.add(Box.createVerticalStrut(40));
+		this.panelGestionarActivitat.add(Box.createVerticalStrut(10));
 
 		return (this.panelGestionarActivitat);
 	}
@@ -1307,14 +1682,149 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		showCardPanelLlistarActivitats("ConsultarActivitat");
 	}
 
+	private void mostraHoresEsportiva(ActivitatEsportiva a)
+	{
+		String		dies[] = a.getDies();
+		LocalTime	hIni[] = a.getHoresInici();
+		LocalTime	hFi[] = a.getHoresFi();
+		String		h;
+
+		for (int i = 0; i < dies.length; i++)
+		{
+			if (dies[i].equals("Dilluns"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDill.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDill.setText(h);
+			}
+			else if (dies[i].equals("Dimarts"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDima.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDima.setText(h);
+			}
+			else if (dies[i].equals("Dimecres"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDime.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDime.setText(h);
+			}
+			else if (dies[i].equals("Dijous"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDij.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDij.setText(h);
+			}
+			else if (dies[i].equals("Divendres"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDiv.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDiv.setText(h);
+			}
+			else if (dies[i].equals("Dissabte"))
+			{
+				if (hIni[i].getMinute() == 0)
+					h = hIni[i].getHour() + ":00";
+				else if (hIni[i].getMinute() < 10)
+					h = hIni[i].getHour() + ":0" + hIni[i].getMinute();
+				else
+					h = hIni[i].getHour() + ":" + hIni[i].getMinute();
+				if (hIni[i].getHour() < 10)
+					h = "0" + h;
+				conHIDis.setText(h);
+				if (hFi[i].getMinute() == 0)
+					h = hFi[i].getHour() + ":00";
+				else if (hFi[i].getMinute() < 10)
+					h = hFi[i].getHour() + ":0" + hFi[i].getMinute();
+				else
+					h = hFi[i].getHour() + ":" + hFi[i].getMinute();
+				if (hFi[i].getHour() < 10)
+					h = "0" + h;
+				conHFDis.setText(h);
+			}
+		}
+	}
+
 	private void mostrarActivitatEsportiva(ActivitatEsportiva a)
 	{
 		String		dies = "";
 		String		dataInici = "";
 		String		dataFi = "";
-		String		horaInici = "";
-		String		horaFi = "";
-		LocalTime	aux = null;
 
 		for (String s : a.getDies())
 		{
@@ -1329,49 +1839,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 		dataFi += a.getDataFi().getDayOfMonth() + "/" +
 				a.getDataFi().getMonthValue() + "/" +
 				a.getDataFi().getYear();
-		for (LocalTime t : a.getHoraInici())
-		{
-			if (t != null)
-			{
-				aux = t;
-				break ;
-			}
-		}
-		if (aux != null)
-		{
-			if (aux.getMinute() == 0)
-				horaInici += aux.getHour() + ":00";
-			else if (aux.getMinute() < 10)
-				horaInici += aux.getHour() + ":0" + aux.getMinute();
-			else
-				horaInici += aux.getHour() + ":" + aux.getMinute();
-			if (aux.getHour() < 10)
-				horaInici = "0" + horaInici;
-		}
-		for (LocalTime t : a.getHoraFi())
-		{
-			if (t != null)
-			{
-				aux = t;
-				break ;
-			}
-		}
-		if (aux != null)
-		{
-			if (aux.getMinute() == 0)
-				horaFi += aux.getHour() + ":00";
-			else if (aux.getMinute() < 10)
-				horaFi += aux.getHour() + ":0" + aux.getMinute();
-			else
-				horaFi += aux.getHour() + ":" + aux.getMinute();
-			if (aux.getHour() < 10)
-				horaFi = "0" + horaFi;
-		}
+		mostraHoresEsportiva(a);
 		consultaDiesAE.setText(dies);
 		consultaDataIniciAE.setText(dataInici);
 		consultaDataFiAE.setText(dataFi);
-		consultaHIniciAE.setText(horaInici);
-		consultaHFiAE.setText(horaFi);
 	}
 
 	private void mostrarActivitatCultural(ActivitatCultural a)
@@ -1419,6 +1890,132 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			consultarDataLimitAF.setText("" + ld.getDayOfMonth() + "/" + ld.getMonthValue() + "/" + ld.getYear());
 			consultarDuracioAF.setText("" + (int)a.getDuradaActivitat() + "h");
 		}
+	}
+	
+	private String[] diesEsportiva()
+	{
+		int cont = 0;
+		String[] dies;
+
+		if (dilluns.isSelected())
+			cont++;
+		if (dimarts.isSelected())
+			cont++;
+		if (dimecres.isSelected())
+			cont++;
+		if (dijous.isSelected())
+			cont++;
+		if (divendres.isSelected())
+			cont++;
+		if (dissabte.isSelected())
+			cont++;
+		if (cont == 0)
+			return (null);
+		dies = new String[cont];
+		cont = 0;
+		if (dilluns.isSelected())
+		{
+			dies[cont] = "Dilluns";
+			cont++;
+		}
+		if (dimarts.isSelected())
+		{
+			dies[cont] = "Dimarts";
+			cont++;
+		}
+		if (dimecres.isSelected())
+		{
+			dies[cont] = "Dimecres";
+			cont++;
+		}
+		if (dijous.isSelected())
+		{
+			dies[cont] = "Dijous";
+			cont++;
+		}
+		if (divendres.isSelected())
+		{
+			dies[cont] = "Divendres";
+			cont++;
+		}
+		if (dissabte.isSelected())
+		{
+			dies[cont] = "Dissabte";
+			cont++;
+		}
+		return (dies);
+	}
+
+	private LocalTime[] getHoresIniciActivitatEsportiva(String[] dies)
+	{
+		LocalTime	t[] = new LocalTime[dies.length];
+		int			i = 0;
+
+		for (String s: dies)
+		{
+			if (s.equals("Dilluns"))
+			{
+				t[i] = LocalTime.of((int)dillHor.getValue(), (int)dillMin.getValue());
+			}
+			else if (s.equals("Dimarts"))
+			{
+				t[i] = LocalTime.of((int)dimaHor.getValue(), (int)dimaMin.getValue());
+			}
+			else if (s.equals("Dimecres"))
+			{
+				t[i] = LocalTime.of((int)dimeHor.getValue(), (int)dimeMin.getValue());
+			}
+			else if (s.equals("Dijous"))
+			{
+				t[i] = LocalTime.of((int)dijHor.getValue(), (int)dijMin.getValue());
+			}
+			else if (s.equals("Divendres"))
+			{
+				t[i] = LocalTime.of((int)divHor.getValue(), (int)divMin.getValue());
+			}
+			else if (s.equals("Dissabte"))
+			{
+				t[i] = LocalTime.of((int)dissHor.getValue(), (int)dissMin.getValue());
+			}
+			i++;
+		}
+		return (t);
+	}
+
+	private LocalTime[] getHoresFiActivitatEsportiva(String[] dies)
+	{
+		LocalTime t[] = new LocalTime[dies.length];
+		int			i = 0;
+
+		for (String s: dies)
+		{
+			if (s.equals("Dilluns"))
+			{
+				t[i] = LocalTime.of((int)dillHorFi.getValue(), (int)dillMinFi.getValue());
+			}
+			else if (s.equals("Dimarts"))
+			{
+				t[i] = LocalTime.of((int)dimaHorFi.getValue(), (int)dimaMinFi.getValue());
+			}
+			else if (s.equals("Dimecres"))
+			{
+				t[i] = LocalTime.of((int)dimeHorFi.getValue(), (int)dimeMinFi.getValue());
+			}
+			else if (s.equals("Dijous"))
+			{
+				t[i] = LocalTime.of((int)dijHorFi.getValue(), (int)dijMinFi.getValue());
+			}
+			else if (s.equals("Divendres"))
+			{
+				t[i] = LocalTime.of((int)divHorFi.getValue(), (int)divMinFi.getValue());
+			}
+			else if (s.equals("Dissabte"))
+			{
+				t[i] = LocalTime.of((int)dissHorFi.getValue(), (int)dissMinFi.getValue());
+			}
+			i++;
+		}
+		return (t);
 	}
 
 	public ActivitatEsportiva getActivitatEsportivaNova()
@@ -1477,12 +2074,10 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			mostrarMissatgeError("La data d'inici seleccionada ja ha passat", "Error al entrar les dades");
 			return (null);
 		}
-		horaInici = new LocalTime[dies.length];
-		horaFi = new LocalTime[dies.length];
+		horaInici = getHoresIniciActivitatEsportiva(dies);
+		horaFi = getHoresFiActivitatEsportiva(dies);
 		for (int i = 0; i < dies.length; i++)
 		{
-			horaInici[i] = LocalTime.of((int)horaIniciEsportiva.getValue(), (int)minIniciEsportiva.getValue());
-			horaFi[i] = LocalTime.of((int)horaFiEsportiva.getValue(), (int)minFiEsportiva.getValue());
 			if (horaInici[i].isAfter(horaFi[i]) || horaInici[i].equals(horaFi[i]))
 			{
 				mostrarMissatgeError("Error al introduïr les hores d'inici i fi", "Error al entrar les dades");
@@ -1627,60 +2222,6 @@ public class FinestraCentreLudic extends JFrame implements IVistaCentreLudic
 			return (false);
 		}
 		return (true);
-	}
-
-	private String[] diesEsportiva()
-	{
-		int cont = 0;
-		String[] dies;
-
-		if (dilluns.isSelected())
-			cont++;
-		if (dimarts.isSelected())
-			cont++;
-		if (dimecres.isSelected())
-			cont++;
-		if (dijous.isSelected())
-			cont++;
-		if (divendres.isSelected())
-			cont++;
-		if (dissabte.isSelected())
-			cont++;
-		if (cont == 0)
-			return (null);
-		dies = new String[cont];
-		cont = 0;
-		if (dilluns.isSelected())
-		{
-			dies[cont] = "Dilluns";
-			cont++;
-		}
-		if (dimarts.isSelected())
-		{
-			dies[cont] = "Dimarts";
-			cont++;
-		}
-		if (dimecres.isSelected())
-		{
-			dies[cont] = "Dimecres";
-			cont++;
-		}
-		if (dijous.isSelected())
-		{
-			dies[cont] = "Dijous";
-			cont++;
-		}
-		if (divendres.isSelected())
-		{
-			dies[cont] = "Divendres";
-			cont++;
-		}
-		if (dissabte.isSelected())
-		{
-			dies[cont] = "Dissabte";
-			cont++;
-		}
-		return (dies);
 	}
 
 	public String getNomActivitatABuscar()
